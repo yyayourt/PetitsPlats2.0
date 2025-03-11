@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Les Petits Plats</title>
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    </head>
+    <body>
+        <div class="hero-section">
+            <header>
+                <h2 class="logo">LES PETITS PLATS</h2>
+            </header>
+
+            <section class="search-bar">
+                <h1>CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES</h1>
+                <div class="search-input">
+                    <input type="text" placeholder="Rechercher une recette, un ingrédient..." />
+                    <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </section>
+        </div>
+
+        <section class="filters">
+            <div class="filter-ingredients">Ingrédients <i class="fa-solid fa-chevron-down"></i></div>
+            <div class="filter-appareils">Appareils <i class="fa-solid fa-chevron-down"></i></div>
+            <div class="filter-ustensiles">Ustensiles <i class="fa-solid fa-chevron-down"></i></div>
+            <div class="recipes-count">1500 recettes</div>
+        </section>
+
+        <section class="recipes" id="recipes-container">
+            <article class="recipe-card">
+                <div class="recipe-image">
+                    <img src="JSON recipes/Recette01.jpg" alt="Limonade de Coco" />
+                    <span class="recipe-time">10 min</span>
+                </div>
+                <div class="recipe-content">
+                    <h2 class="recipe-title">Limonade de Coco</h2>
+                    <h3 class="recipe-subtitle">RECETTE</h3>
+                    <p class="recipe-description">
+                        Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée.
+                    </p>
+                    <h3 class="recipe-subtitle">INGRÉDIENTS</h3>
+                    <div class="recipe-ingredients">
+                        <div class="ingredient">
+                            <div class="ingredient-name">Lait de coco</div>
+                            <div class="ingredient-quantity">400ml</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-name">Jus de citron</div>
+                            <div class="ingredient-quantity">2</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-name">Crème de coco</div>
+                            <div class="ingredient-quantity">2 cuillères</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-name">Sucre</div>
+                            <div class="ingredient-quantity">30g</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-name">Glaçons</div>
+                            <div class="ingredient-quantity">2</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="recipe-card">
+                <div class="recipe-image">
+                    <img src="JSON recipes/Recette02.jpg" alt="Poisson Cru à la tahitienne" />
+                    <span class="recipe-time">25 min</span>
+                </div>
+                <div class="recipe-content">
+                    <h2 class="recipe-title">Poisson Cru à la tahitienne</h2>
+                    <h3 class="recipe-subtitle">RECETTE</h3>
+                    <p class="recipe-description">
+                        Découper le thon en dés, mettre dans un plat et recouvrir de jus de citron vert. Laisser reposer au réfrigérateur au moins 2 heures. Si possible faites-le le soir pour le
+                        lendemain. Après avoir laissé mariner le poisson, coupez le concombre en fines rondelles sans la peau et les tomates en dés. Ajouter les légumes au poisson avec le lait de
+                        coco. Ajouter sel, poivre. Servir.
+                    </p>
+                    <h3 class="recipe-subtitle">INGRÉDIENTS</h3>
+                    <div class="recipe-ingredients">
+                        <div class="ingredient">
+                            <div class="ingredient-name">Thon Rouge (ou blanc)</div>
+                            <div class="ingredient-quantity">200g</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-name">Concombre</div>
+                            <div class="ingredient-quantity">1</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-name">Tomates</div>
+                            <div class="ingredient-quantity">2</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-name">Citron Vert</div>
+                            <div class="ingredient-quantity">5</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-name">Lait de Coco</div>
+                            <div class="ingredient-quantity">100ml</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="recipe-card">
+                <div class="recipe-image">
+                    <img src="JSON recipes/Recette03.jpg" alt="Poulet coco réunionnais" />
+                    <span class="recipe-time">20 min</span>
+                </div>
+                <div class="recipe-content">
+                    <h2 class="recipe-title">Poulet coco réunionnais</h2>
+                    <h3 class="recipe-subtitle">RECETTE</h3>
+                    <p class="recipe-description">
+                        Découper le poulet en morceaux, les faire dorer dans une cocotte avec de l'huile d'olive. Salez et poivrez. Une fois doré, baisser le feu, ajouter l'oignon émincé et la tomate
+                        coupée en morceaux. Laisser mijoter 30 minutes. Préparer le riz. Faire bouillir l'eau, ajouter le riz et laisser cuire 10 à 15 minutes. Ajouter le lait de coco au poulet 5
+                        minutes avant la fin de la cuisson.
+                    </p>
+                    <h3 class="recipe-subtitle">INGRÉDIENTS</h3>
+                    <div class="recipe-ingredients">
+                        <div class="ingredient">
+                            <div class="ingredient-name">Poulet</div>
+                            <div class="ingredient-quantity">1</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-name">Lait de coco</div>
+                            <div class="ingredient-quantity">400ml</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-name">Riz</div>
+                            <div class="ingredient-quantity">300g</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-name">Tomate</div>
+                            <div class="ingredient-quantity">1</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-name">Oignon</div>
+                            <div class="ingredient-quantity">1</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-name">Huile d'olive</div>
+                            <div class="ingredient-quantity">1 cuillère</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </body>
+</html>
