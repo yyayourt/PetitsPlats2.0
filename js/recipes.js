@@ -73,6 +73,7 @@ function displayRecipes() {
         const card = createRecipeCard(recipe);
         container.appendChild(card);
     });
+    document.querySelector(".recipes-count").textContent = `${recipes.length} recettes`;
 }
 
 document.addEventListener("DOMContentLoaded", displayRecipes);
