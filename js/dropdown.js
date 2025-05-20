@@ -5,6 +5,56 @@ const filters = [
 ];
 
 let selectedFilters = [];
+const dropdownItemLists = {};
+
+const getIngredients = (recipeList) => [...new Set(recipeList.flatMap((recipe) => recipe.ingredients.map((item) => item.ingredient.toLowerCase())))];
+
+const getAppliance = (recipeList) => [...new Set(recipeList.map((recipe) => recipe.appliance.toLowerCase()))];
+
+const getUstensils = (recipeList) => [...new Set(recipeList.flatMap((recipe) => recipe.ustensils.map((item) => item.toLowerCase())))];
+
+function populateDropdownList(filterType, listElement, recipeSource) {
+    listElement.innerHTML = "";
+
+    let items = [];
+    if (filterType === "ingredients") {
+        items = getIngredients(recipeSource);
+    } else if (filterType === "appliances") {
+        items = getAppliance(recipeSource);
+    } else if (filterType === "ustensils") {
+        items = getUstensils(recipeSource);
+    }
+
+    items.sort();
+
+    items.forEach((item) => {
+        const itemElement = document.createElement("div");
+        itemElement.className = `ingredient-item`;
+        itemElement.textContent = item;
+
+        if (selectedFilters.includes(item)) {
+            itemElement.classList.add("selected-in-dropdown");
+        }
+
+        itemElement.addEventListener("click", () => {
+            if (!selectedFilters.includes(item)) {
+                document.querySelector(".selected-tags").appendChild(createSelectedFilters(item));
+                selectedFilters.push(item);
+                filterRecipes();
+            }
+            listElement.parentElement.style.display = "none";
+        });
+
+        listElement.appendChild(itemElement);
+    });
+
+    if (items.length === 0) {
+        const noItemElement = document.createElement("div");
+        noItemElement.className = "no-items-message";
+        noItemElement.textContent = "Aucune option disponible";
+        listElement.appendChild(noItemElement);
+    }
+}
 
 function createDropdowns() {
     filters.forEach((filter) => {
@@ -21,16 +71,7 @@ function createDropdowns() {
         const searchInput = document.createElement("input");
         searchInput.type = "text";
         searchInput.className = "dropdown-search";
-
-        searchInput.addEventListener("input", (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            const ingredientItems = ingredientsList.querySelectorAll(".ingredient-item");
-
-            ingredientItems.forEach((item) => {
-                const ingredientName = item.textContent.toLowerCase();
-                item.style.display = ingredientName.includes(searchTerm) ? "block" : "none";
-            });
-        });
+        searchInput.id = `search-${filter.type}`;
 
         const searchIcon = document.createElement("i");
         searchIcon.className = "fa-solid fa-magnifying-glass search-icon";
@@ -40,45 +81,35 @@ function createDropdowns() {
 
         dropdownContent.appendChild(searchContainer);
 
-        const ingredientsList = document.createElement("div");
-        ingredientsList.className = "ingredients-list";
+        const itemsList = document.createElement("div");
+        itemsList.className = "ingredients-list";
+        itemsList.id = `list-${filter.type}`;
 
-        let items = [];
+        dropdownItemLists[filter.type] = itemsList;
 
-        if (filter.type === "ingredients") {
-            items = getIngredients();
-        } else if (filter.type === "appliances") {
-            items = getAppliance();
-        } else if (filter.type === "ustensils") {
-            items = getUstensils();
-        }
+        populateDropdownList(filter.type, itemsList, recipes);
 
-        items.map((item) => {
-            const itemElement = document.createElement("div");
-            itemElement.className = `ingredient-item`;
-            itemElement.textContent = item;
+        searchInput.addEventListener("input", (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const currentItems = itemsList.querySelectorAll(".ingredient-item");
 
-            itemElement.addEventListener("click", () => {
-                if (!selectedFilters.includes(item)) {
-                    document.querySelector(".selected-tags").appendChild(createSelectedFilters(item));
-                    selectedFilters.push(item);
-                    filterRecipes();
-                }
+            currentItems.forEach((item) => {
+                const itemName = item.textContent.toLowerCase();
+                item.style.display = itemName.includes(searchTerm) ? "block" : "none";
             });
-
-            ingredientsList.appendChild(itemElement);
         });
 
-        dropdownContent.appendChild(ingredientsList);
+        dropdownContent.appendChild(itemsList);
         dropdown.appendChild(dropdownContent);
 
         dropdown.addEventListener("click", (e) => {
             if (e.target !== searchInput) {
-                if (dropdownContent.style.display === "block") {
-                    dropdownContent.style.display = "none";
-                } else {
-                    dropdownContent.style.display = "block";
-                }
+                document.querySelectorAll(".dropdown-content").forEach((dd) => {
+                    if (dd !== dropdownContent && dd.style.display === "block") {
+                        dd.style.display = "none";
+                    }
+                });
+                dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
             }
         });
 
@@ -87,16 +118,29 @@ function createDropdowns() {
     });
 }
 
-const getIngredients = () => [...new Set(recipes.flatMap((recipe) => recipe.ingredients.map((item) => item.ingredient.toLowerCase())))];
-
-const getAppliance = () => [...new Set(recipes.map((recipe) => recipe.appliance.toLowerCase()))];
-
-const getUstensils = () => [...new Set(recipes.flatMap((recipe) => recipe.ustensils.map((item) => item.toLowerCase())))];
-
-console.log(getIngredients());
-
-console.log(getAppliance());
-
-console.log(getUstensils());
+function updateAllDropdowns(currentFilteredRecipes) {
+    filters.forEach((filter) => {
+        const listElement = dropdownItemLists[filter.type];
+        if (listElement) {
+            populateDropdownList(filter.type, listElement, currentFilteredRecipes);
+        }
+    });
+}
 
 document.addEventListener("DOMContentLoaded", createDropdowns);
+
+document.addEventListener("click", function (event) {
+    const openDropdowns = document.querySelectorAll('.dropdown-content[style*="display: block"]');
+    let clickedInsideDropdown = false;
+    openDropdowns.forEach((dropdown) => {
+        if (dropdown.parentElement.contains(event.target)) {
+            clickedInsideDropdown = true;
+        }
+    });
+
+    if (!clickedInsideDropdown) {
+        openDropdowns.forEach((dropdown) => {
+            dropdown.style.display = "none";
+        });
+    }
+});
